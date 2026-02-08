@@ -1,0 +1,152 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background */
+.background-layer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(16,185,129,0.15), transparent 40%),
+    linear-gradient(rgba(2,6,23,0.92), rgba(2,6,23,0.92)),
+    url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3");
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+/* Glass card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.8rem;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 40px 120px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Typography */
+.login-card h1 {
+  text-align: center;
+  font-size: 1.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin-bottom: 2.2rem;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 1.6rem;
+}
+
+label {
+  display: block;
+  font-size: 0.75rem;
+  color: #a7f3d0;
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.4px;
+}
+
+input {
+  width: 100%;
+  padding: 0.9rem 1.05rem;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  transition: all 0.25s ease;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus {
+  outline: none;
+  background: rgba(255,255,255,0.16);
+  box-shadow: 0 0 0 2px rgba(16,185,129,0.65);
+}
+
+/* Button */
+.primary-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg,#10b981,#22c55e);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  margin-top: 0.6rem;
+  color: #022c22;
+  box-shadow: 0 20px 40px rgba(16,185,129,0.35);
+}
+
+/* Footer */
+.login-footer {
+  text-align: center;
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  cursor: pointer;
+}
+/* ---------- OTP FIXED STYLES ---------- */
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.8rem 0 2rem;
+}
+
+.otp-input {
+  width: 52px;
+  height: 58px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.otp-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.7);
+}
+/* Login actions row */
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.login-actions span {
+  color: #34d399;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.login-actions span:hover {
+  text-decoration: underline;
+}
