@@ -1,0 +1,44 @@
+.role-page {
+  min-height: 100vh;
+  padding: 2.5rem;
+  color: #e5e7eb;
+}
+
+.role-page.manager {
+  background: radial-gradient(circle at top right, #22c55e33, #020617);
+}
+
+.role-page.agent {
+  background: radial-gradient(circle at top right, #3b82f633, #020617);
+}
+
+.role-page.customer {
+  background: radial-gradient(circle at top right, #a855f733, #020617);
+}
+
+.role-page h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.role-card {
+  background: rgba(255,255,255,0.08);
+  padding: 1.6rem;
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.role-card p {
+  color: #9ca3af;
+}
+
+.role-card h2 {
+  font-size: 1.8rem;
+}
