@@ -14,35 +14,24 @@ export default function Landing() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1>Select Login Type</h1>
-        <p className="subtitle">
-          Choose how you want to access the system
-        </p>
+        <h1>Welcome</h1>
+        <p className="subtitle">Sign in or create an account to continue</p>
 
         <motion.button
           className="primary-btn"
-          onClick={() => navigate("/login/manager")}
+          onClick={() => navigate("/login")}
           whileHover={{ scale: 1.05 }}
         >
-          Manager Login
+          Sign In
         </motion.button>
 
         <motion.button
-          className="primary-btn"
-          onClick={() => navigate("/login/agent")}
+          className="secondary-btn"
+          onClick={() => navigate("/signup")}
           whileHover={{ scale: 1.05 }}
           style={{ marginTop: "1rem" }}
         >
-          Agent Login
-        </motion.button>
-
-        <motion.button
-          className="primary-btn"
-          onClick={() => navigate("/login/customer")}
-          whileHover={{ scale: 1.05 }}
-          style={{ marginTop: "1rem" }}
-        >
-          Customer Login
+          Create Account
         </motion.button>
       </motion.div>
     </div>

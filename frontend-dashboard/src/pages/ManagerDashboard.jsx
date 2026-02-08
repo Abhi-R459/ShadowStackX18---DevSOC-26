@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import "../styles/roleDashboard.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function ManagerDashboard() {
+  const { signOut } = useAuth();
   return (
     <div className="role-page manager">
-      <Header title="Manager Dashboard" />
+      <Header title="Manager Dashboard" onLogout={signOut} />
 
       <div className="grid">
         <Card title="Total Cases" value="128" />
@@ -15,8 +17,15 @@ export default function ManagerDashboard() {
   );
 }
 
-function Header({ title }) {
-  return <h1>{title}</h1>;
+function Header({ title, onLogout }) {
+  return (
+    <div className="role-header">
+      <h1>{title}</h1>
+      <button className="secondary-btn" onClick={onLogout}>
+        Logout
+      </button>
+    </div>
+  );
 }
 
 function Card({ title, value }) {

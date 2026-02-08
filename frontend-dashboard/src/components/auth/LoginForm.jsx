@@ -1,18 +1,36 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+
+const roleToPath = {
+  manager: "/manager",
+  agent: "/agent",
+  customer: "/customer",
+};
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, role } = useAuth();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    if (email.endsWith("@manager.company.com")) {
-      navigate("/manager");
-    } else if (email.endsWith("@agent.company.com")) {
-      navigate("/agent");
-    } else {
-      navigate("/customer");
+  const handleLogin = async () => {
+    setError("");
+    setLoading(true);
+    try {
+      const from = location.state?.from?.pathname;
+      const result = await login(email, password);
+      const effectiveRole = result.role || role || "customer";
+      const fallback = roleToPath[effectiveRole] || "/customer";
+      navigate(from || fallback, { replace: true });
+    } catch (err) {
+      setError(err.message || "Sign in failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,25 +53,37 @@ export default function LoginForm() {
           placeholder="you@company.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
         />
       </div>
 
       <div className="form-group">
         <label>PASSWORD</label>
-        <input type="password" placeholder="••••••••" />
+        <input
+          type="password"
+          placeholder="••••••••"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+        />
       </div>
+
+      {error && <div className="auth-error">{error}</div>}
 
       <motion.button
         className="primary-btn"
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
         onClick={handleLogin}
+        disabled={loading}
       >
-        Sign In
+        {loading ? "Signing in…" : "Sign In"}
       </motion.button>
 
       <div className="login-footer">
-        Forgot password?
+        <span onClick={() => navigate("/forgot")}>Forgot password?</span>
+        <span className="footer-sep"> · </span>
+        <span onClick={() => navigate("/signup")}>Create account</span>
       </div>
     </motion.div>
   );

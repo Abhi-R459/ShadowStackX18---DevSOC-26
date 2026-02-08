@@ -41,7 +41,12 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
-  const login = (email, password) => loginWithEmailAndPassword(email, password);
+  const login = async (email, password) => {
+    const credential = await loginWithEmailAndPassword(email, password);
+    const profile = await getUserProfile(credential.user.uid);
+    setRole(profile?.role || null);
+    return { credential, role: profile?.role || null };
+  };
 
   const signUp = async (email, password, roleForUser = "customer") => {
     const credential = await createUser(email, password, roleForUser);
