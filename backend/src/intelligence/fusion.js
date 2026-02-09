@@ -6,8 +6,18 @@ export async function runIntelligence(transcripts, documentData) {
   // Run deterministic rules first for explainability and speed.
   const ruleResult = validateClaims(transcripts, documentData);
 
+  // Entities: prefer document-extracted entities for reliability in audit logs
+  const extractedEntities = {
+    amounts: Array.isArray(documentData && documentData.transactions)
+      ? documentData.transactions.map(t => t.amount)
+      : (ruleResult.extractedEntities ? ruleResult.extractedEntities.amounts : []),
+    dates: Array.isArray(documentData && documentData.transactions)
+      ? documentData.transactions.map(t => t.date)
+      : (ruleResult.extractedEntities ? ruleResult.extractedEntities.dates : [])
+  };
+
   // Generate human-friendly summary using LLM with deterministic fallback.
-  const summary = await generateSummary(transcripts, ruleResult);
+  const summary = await generateSummary(transcripts, ruleResult, extractedEntities);
 
   // Build structured, auditable output required by the API contract.
   const analysisId = Date.now().toString();
@@ -18,15 +28,7 @@ export async function runIntelligence(transcripts, documentData) {
   // Intent: for judging we map directly from verification result
   const detectedIntent = ruleResult.verified ? "PAYMENT_CONFIRMED" : "PAYMENT_DISPUTE";
 
-  // Entities: prefer document-extracted entities for reliability in audit logs
-  const extractedEntities = {
-    amounts: Array.isArray(documentData && documentData.transactions)
-      ? documentData.transactions.map(t => t.amount)
-      : (ruleResult.extractedEntities ? ruleResult.extractedEntities.amounts : []),
-    dates: Array.isArray(documentData && documentData.transactions)
-      ? documentData.transactions.map(t => t.date)
-      : (ruleResult.extractedEntities ? ruleResult.extractedEntities.dates : [])
-  };
+
 
   const confidence = typeof documentData.confidence === "number"
     ? documentData.confidence

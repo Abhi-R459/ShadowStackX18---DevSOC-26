@@ -5,8 +5,9 @@ import axios from "axios";
 // - Prefer calling the HF Inference API when an API key is configured.
 // - Use a short timeout and guard response shapes.
 // - Fall back to a deterministic message when the call fails or key is missing.
-export async function generateSummary(transcripts, ruleResult) {
-  const prompt = `Customer call transcript:\n${(transcripts || []).join("\n")}\n\nVerification result:\n${ruleResult && ruleResult.verified ? "Payment verified" : "Payment not verified"}\n\nWrite a short professional summary and next action.`;
+export async function generateSummary(transcripts, ruleResult, extractedEntities = {}) {
+  const verifiedText = ruleResult && ruleResult.verified ? "Payment verified" : "Payment not verified";
+  const prompt = `You are an expert compliance analyst. Given the transcript and verified facts below, produce a concise, legally-defensible summary (3-6 sentences), list confirmed entities, and suggest the next action. Do not hallucinate facts. If evidence is missing, state that explicitly.\n\nTRANSCRIPT:\n${(transcripts || []).join("\n")}\n\nVERIFIED_FACTS:\n- Verification: ${verifiedText}\n- RiskLevel: ${ruleResult?.riskLevel || 'unknown'}\n- ExtractedAmounts: ${JSON.stringify(extractedEntities.amounts || [])}\n- ExtractedDates: ${JSON.stringify(extractedEntities.dates || [])}\n\nOUTPUT FORMAT:\nSummary:\nConfirmedEntities:\nSuggestedAction:\nConfidenceScore:\n`;
 
   // If no Hugging Face key is set, skip the external call (safe demo behaviour).
   const hfKey = process.env.HF_API_KEY;
@@ -16,13 +17,14 @@ export async function generateSummary(transcripts, ruleResult) {
 
   try {
     const response = await axios.post(
-      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
-      { inputs: prompt, parameters: { max_new_tokens: 150 } },
+      "https://api-inference.huggingface.co/models/google/flan-t5-base",
+      { inputs: prompt, parameters: { max_new_tokens: 256, temperature: 0.0 } },
       {
         headers: {
-          Authorization: `Bearer ${hfKey}`
+          Authorization: `Bearer ${hfKey}`,
+          "Content-Type": "application/json"
         },
-        timeout: 5000
+        timeout: 8000
       }
     );
 
@@ -39,6 +41,10 @@ export async function generateSummary(transcripts, ruleResult) {
 
     if (Array.isArray(data) && data[0] && typeof data[0].generated_text === "string") {
       return sanitizeSummary(data[0].generated_text);
+    }
+
+    if (typeof data === "string") {
+      return sanitizeSummary(data);
     }
 
     if (typeof data.generated_text === "string") {
