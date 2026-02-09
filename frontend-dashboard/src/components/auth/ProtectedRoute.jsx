@@ -29,8 +29,8 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    const fallback = roleToPath[role] || "/enter";
-    return <Navigate to={fallback} replace />;
+    // Redirect explicitly to unauthorized page for better UX and auditing
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return children;

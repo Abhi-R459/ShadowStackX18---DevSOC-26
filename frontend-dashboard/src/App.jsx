@@ -9,9 +9,9 @@ import AgentLogin from "./pages/AgentLogin";
 import CustomerLogin from "./pages/CustomerLogin";
 import Login from "./pages/Login";
 
-import ManagerDashboard from "./pages/ManagerDashboard";
-import AgentDashboard from "./pages/AgentDashboard";
-import CustomerDashboard from "./pages/CustomerDashboard";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import AgentDashboard from "./pages/agent/AgentDashboard";
+import CustomerDashboard from "./pages/customer/CustomerDashboard";
 
 import SignupEmail from "./pages/SignupEmail";
 import SignupOTP from "./pages/SignupOTP";
@@ -20,6 +20,7 @@ import ForgotEmail from "./pages/ForgotEmail";
 import ForgotOTP from "./pages/ForgotOTP";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import Unauthorized from "./pages/Unauthorized";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/forgot/reset" element={<ResetPassword />} />
 
           <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route
             path="/manager"
