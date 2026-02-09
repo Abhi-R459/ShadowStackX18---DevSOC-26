@@ -1,4 +1,19 @@
-.env
-backend/.env
+# OS junk
+.DS_Store
+
+# Node
 node_modules/
-backend/node_modules/
+
+# Python
+hf-env/
+
+# Firebase secrets
+backend/serviceAccountKey.json
+backend/.env
+
+# Datasets & assets
+datasets/
+photos/
+
+# Temp files
+backend/-F

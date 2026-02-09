@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg-900: #0b1220;
+  --bg-800: #0f1724;
+  --muted: #94a3b8;
+  --card-bg: rgba(255,255,255,0.04);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +19,24 @@
 }
 
 body {
-  background: #020617;
+  @apply bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-slate-100;
+  background-color: var(--bg-900);
   color: #e5e7eb;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.primary-btn{
+  @apply bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-md;
+}
+
+.secondary-btn{
+  @apply bg-transparent border border-white/10 text-slate-200 py-2 px-4 rounded-lg hover:bg-white/5;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 16px;
 }
