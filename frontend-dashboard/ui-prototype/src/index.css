@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prototype global theming for premium dark fintech look */
+:root {
+  --bg: #041122;
+  --panel: rgba(255,255,255,0.04);
+  --glass-border: rgba(135, 206, 250, 0.06);
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --ok: #22c55e;
+}
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-[var(--bg)] text-gray-200 font-sans;
+  background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 240px 240px;
+}
+
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border-radius: 12px;
+}
+
+.kpi { padding: 18px; }
+.kpi .value { font-weight: 700; font-size: 1.6rem; }
+
+.role-page { padding: 20px; }
+
+.role-card { padding: 14px; }
+
+.primary-btn { background: var(--accent); color: #001018; padding: 8px 12px; border-radius: 8px; }
+.secondary-btn { background: transparent; border: 1px solid rgba(255,255,255,0.04); padding: 6px 10px; border-radius: 8px; color: var(--muted); }
