@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import ManagerLogin from "./pages/ManagerLogin";
 import AgentLogin from "./pages/AgentLogin";
 import CustomerLogin from "./pages/CustomerLogin";
+import Login from "./pages/Login";
 
 import ManagerDashboard from "./pages/ManagerDashboard";
 import AgentDashboard from "./pages/AgentDashboard";
@@ -29,16 +30,17 @@ export default function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/enter" element={<Landing />} />
 
+          <Route path="/login" element={<Login />} />
           <Route path="/login/manager" element={<ManagerLogin />} />
           <Route path="/login/agent" element={<AgentLogin />} />
           <Route path="/login/customer" element={<CustomerLogin />} />
 
-          <Route path="/signup/:role" element={<SignupEmail />} />
-          <Route path="/signup/:role/verify" element={<SignupOTP />} />
+          <Route path="/signup" element={<SignupEmail />} />
+          <Route path="/signup/verify" element={<SignupOTP />} />
 
-          <Route path="/forgot/:role" element={<ForgotEmail />} />
-          <Route path="/forgot/:role/verify" element={<ForgotOTP />} />
-          <Route path="/forgot/:role/reset" element={<ResetPassword />} />
+          <Route path="/forgot" element={<ForgotEmail />} />
+          <Route path="/forgot/verify" element={<ForgotOTP />} />
+          <Route path="/forgot/reset" element={<ResetPassword />} />
 
           <Route path="/verify-email" element={<VerifyEmail />} />
 

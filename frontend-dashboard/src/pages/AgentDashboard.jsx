@@ -1,10 +1,17 @@
 import { motion } from "framer-motion";
 import "../styles/roleDashboard.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function AgentDashboard() {
+  const { signOut } = useAuth();
   return (
     <div className="role-page agent">
-      <h1>Agent Dashboard</h1>
+      <div className="role-header">
+        <h1>Agent Dashboard</h1>
+        <button className="secondary-btn" onClick={signOut}>
+          Logout
+        </button>
+      </div>
 
       <div className="grid">
         <Card title="Assigned Cases" value="17" />

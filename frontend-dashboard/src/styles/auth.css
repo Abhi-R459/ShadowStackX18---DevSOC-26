@@ -36,6 +36,8 @@
     inset 0 0 0 1px rgba(255,255,255,0.04);
 }
 
+/* Signup card uses same theme as login */
+
 /* Typography */
 .login-card h1 {
   text-align: center;
@@ -49,6 +51,8 @@
   font-size: 0.95rem;
   margin-bottom: 2.2rem;
 }
+
+/* (signup uses default subtitle color) */
 
 /* Inputs */
 .form-group {
@@ -83,6 +87,9 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(16,185,129,0.65);
 }
 
+/* Signup variant inputs */
+/* (signup uses default dark inputs) */
+
 /* Button */
 .primary-btn {
   width: 100%;
@@ -96,6 +103,26 @@ input:focus {
   margin-top: 0.6rem;
   color: #022c22;
   box-shadow: 0 20px 40px rgba(16,185,129,0.35);
+}
+
+/* Secondary button (outline) */
+.secondary-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+  border-color: rgba(16,185,129,0.6);
+  color: #a7f3d0;
 }
 
 /* Footer */
@@ -149,4 +176,33 @@ input:focus {
 
 .login-actions span:hover {
   text-decoration: underline;
+}
+
+/* Role pills */
+.role-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.role-pill {
+  padding: 0.85rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #e2e8f0;
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.role-pill.active {
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #f8fafc;
+  border-color: transparent;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+}
+
+.role-pill:hover {
+  transform: translateY(-1px);
 }

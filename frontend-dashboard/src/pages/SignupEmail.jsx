@@ -1,15 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/auth.css";
 import { useAuth } from "../context/AuthContext";
 
 export default function SignupEmail() {
-  const { role } = useParams();
   const navigate = useNavigate();
   const { signUp } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [role, setRole] = useState("customer");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,8 +25,8 @@ export default function SignupEmail() {
     }
     setLoading(true);
     try {
-      await signUp(email, password, role || "customer");
-      navigate(`/signup/${role}/verify`, { replace: true });
+      await signUp(email, password, role);
+      navigate(`/signup/verify`, { replace: true });
     } catch (err) {
       setError(err.message || "Could not create account.");
     } finally {
@@ -40,7 +40,7 @@ export default function SignupEmail() {
 
       <div className="login-card">
         <h1>Create Account</h1>
-        <p className="subtitle">Enter your email to get a verification link</p>
+        <p className="subtitle">Choose your role and get a verification link</p>
 
         {error && <div className="auth-error">{error}</div>}
 
@@ -76,9 +76,29 @@ export default function SignupEmail() {
           />
         </div>
 
+        <div className="form-group">
+          <label>ACCOUNT TYPE</label>
+          <div className="role-pills">
+            {["manager", "agent", "customer"].map((r) => (
+              <button
+                key={r}
+                type="button"
+                className={`role-pill ${role === r ? "active" : ""}`}
+                onClick={() => setRole(r)}
+              >
+                {r === "manager" ? "Manager" : r === "agent" ? "Agent" : "Customer"}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <button className="primary-btn" onClick={handleSubmit} disabled={loading}>
           {loading ? "Sending link…" : "Send verification link"}
         </button>
+
+        <div className="login-footer">
+          <span onClick={() => navigate("/login")}>Back to login</span>
+        </div>
       </div>
     </div>
   );
